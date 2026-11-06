@@ -32,3 +32,5 @@ spec:
     operator: "Equal"
     value: "ops"
     effect: "NoSchedule"
+kubectl create deployment scale --image=httpd
+kubectl autoscale deployment scale --cpu=50% --min=1 --max=5
