@@ -14,3 +14,21 @@ kubectl create deployment resource-demo --replicas=2 --image=nginx:latest --dry-
 kubectl apply -f resource-demo.yaml
 kubectl top nodes
 kubectl top pods
+kubectl taint nodes node01 key1=value1:NoSchedule
+kubectl taint nodes node01 key1=value1:NoSchedule-
+kubectl taint nodes node01 ops=value1:NoSchedule
+kubectl run toleration-demo --image=nginx --dry-run=client -o yaml > toleration-demo.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+  name: toleration-demo
+spec:
+  containers:
+  - image: nginx
+    name: toleration-demo
+  tolerations:
+  - key: "key1"
+    operator: "Equal"
+    value: "ops"
+    effect: "NoSchedule"
