@@ -37,3 +37,27 @@ kubectl autoscale deployment scale --cpu=50% --min=1 --max=5
 kubectl events
 kubectl events -A
 # Week 5-6 Labs
+kubectl create deployment stateless --image=nginx --port=80
+kubectl create service clusterip stateless --tcp=80:80
+kubectl scale deployment stateless --replicas=4
+kubectl create configmap stateless --from-literal=ENV=dev
+kubectl create secret generic stateless --from-literal=PASSWORD=example123
+kubectl edit deployment stateless
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        env:
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: stateless
+              key: ENV
+
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: stateless
+              key: PASSWORD
