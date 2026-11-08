@@ -66,3 +66,4 @@ kubectl rollout status deployment/stateless
 kubectl rollout history deployment/stateless
 kubectl set image deployment/stateless nginx:latest=httpd
 # Week 7-8 Labs
+kubectl create deployment multiple --image=httpd --image=nginx --port=80
